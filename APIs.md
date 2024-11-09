@@ -88,8 +88,104 @@ Là một phương thức xác thực an toàn và hiện đại, trong đó ser
 4. Client gửi yêu cầu với token: trong các yêu cầu tiếp theo, client gửi token này trong header của yêu cầu HTTP.
 5. Server kiểm tra token: server xác minh token nếu hợp lệ thì xử lý yêu cầu, không thì từ chối.
 ##### 5. Cookie Based Auth
+
+là một phương pháp xác thực phổ biến trong các ứng dụng web
+
+vì sao cần dùng ?
+
+- xác thực người dùng: đảm bảo người đang đăng nhập là người có quyền truy cập.
+- tránh đăng nhập lại: giúp người dùng không phải đăng nhập lại mỗi khi truy cập các page khác trong ứng dụng.
+- dễ dàng triển khai: dễ dàng tích hợp vào các framework và thư viện hiện tại.
+
+cách hoạt động?
+
+- Đăng nhập: người dùng nhập thông tin đăng nhập: username, password
+- Tạo cookie: server xác thực thông tin đăng nhập và tạo cookie chứa thông tin xác thực
+- Gửi cookie: server gửi cookie đến trình duyệt người dùng.
+- Lưu cookie: trình duyệt lưu cookie.
+- Yêu cầu tiếp theo: Với mỗi yêu cầu tiếp theo của trình duyệt, cookie sẽ được gửi kèm đến server
+- Kiểm tra cookie: server sẽ kiểm tra cookie và xác thực người dùng
+
+Ưu điểm?
+
+- Dễ triển khai: dễ tích hợp vào các ứng dụng web hiện tại.
+- Trải nghiệm người dùng tốt: người dùng không phải đăng nhập lại mỗi khi gửi request
+- Xác thực nhanh chóng: xác thực người dùng nhanh chóng đối với mỗi yêu cầu.
+
+Hạn chế?
+
+- An toàn hạn chế: Cookie có thể bị lộ nếu bị tấn công man-in-the-middle hoặc cookie hijacking.
+- Không thích hợp cho ứng dụng di động: Không phù hợp với các ứng dụng di động hoặc API.
+
+<details>
+  <summary>Vì sao không tương thích với ứng dụng di động?</summary>
+
+- Bảo mật và lưu trữ:
+
+  - Trình duyệt web có cơ chế tự động quản lý và bảo mật cookie tốt hơn so với các ứng dụng di động.
+  - Các ứng dụng di động phải tự mình lưu trữ và quản lý cookie, điều này có thể dẫn đến các vấn đề bảo mật nếu không được triển khai đúng cách.
+- Cơ chế hoạt động của ứng dụng di động:
+
+    - Ứng dụng di động thường có nhiều phiên bản khác nhau, nên việc đồng bộ và quản lý cookie trở nên phức tạp hơn.
+    - Cookie có thể bị mất khi ứng dụng bị đóng hoặc cập nhật, dẫn đến việc người dùng phải đăng nhập lại thường xuyên.
+
+- Khả năng tương tác với API:
+
+    - Các ứng dụng di động thường giao tiếp với API thông qua các token như JWT (JSON Web Token) vì tính tiện lợi và bảo mật cao hơn.
+    - JWT có thể được lưu trữ và sử dụng dễ dàng trong ứng dụng di động, giúp bảo mật và quản lý phiên làm việc tốt hơn so với cookie.
+
+</details>
+
+Giải pháp:
+
+- Sử dụng HTTPS: Đảm bảo rằng tất cả các giao tiếp giữa trình duyệt và server đều sử dụng HTTPS để bảo vệ cookie.
+- Sử dụng token-based authentication: Thay thế hoặc kết hợp với token-based authentication (ví dụ: JWT) để tăng tính an toàn.
+
 ##### 6. OpenID
+
+- là một hệ thống xác thực đa dạng cho phép người dùng sử dụng một tài khoản để đăng nhập vào nhiều dịch vụ khác nhau mà không cần phải đăng nhập nhiều lần.
+Một phương pháp phổ biến để giảm bớt việc nhớ và quản lý nhiều tài khoản đăng nhập.
+
+Cơ chế hoạt động
+
+OpenID hoạt động dựa trên một hệ thống xác thực đa dạng. Khi người dùng muốn đăng nhập vào một dịch vụ, họ sẽ được yêu cầu cung cấp tài khoản OpenID của mình. 
+Dịch vụ này sẽ liên hệ với cơ sở dữ liệu OpenID để xác thực tài khoản và trả về kết quả. Nếu xác thực thành công, người dùng sẽ được chuyển đến trang chính của dịch vụ mà không cần phải nhập lại thông tin đăng nhập.
+
+Lý do sử dụng OpenID
+
+- Tiện lợi: người dùng không cần phải nhớ nhiều tài khoản đăng nhập
+- An toàn: giảm thiểu rủi ro mất mát thông tin đăng nhập
+- Tiết kiệm thời gian: giảm bớt thời gian đăng nhập vào các dịch vụ khác nhau.
+
+Nhược điểm:
+
+- Phụ thuộc vào dịch vụ OpenID: Nếu dịch vụ OpenID gặp sự cố người dùng có thể không thể truy cập vào các  dịch vụ liên quan.
+- Rủi ro bảo mật: Nếu tài khoản OpenID bị truy cập trái phép, người dùng có thể mất quyền truy cập vào nhiều dịch vụ.
+
+Giải pháp khắc phục:
+
+- Sử dụng mật khẩu phức tạp: đảm bảo rằng tài khoản OpenID của bạn có mật khẩu phức tạp và không dễ dàng đoán.
+- Sử dụng 2FA (Two-Factor Authentication): bổ sung một lớp bảo mật khác như OTP (One-Time Password) hoặc biometric.
+- Theo dõi và kiểm tra: thường xuyên kiểm tra hoạt động tài khoản và thông báo bất thường nếu có.
+
 ##### 7. SAML
+
+> Giả sử bạn đăng nhập vào một hệ thống quản lý công việc (IdP) và sau đó truy cập vào một ứng dụng CRM (SP).
+> Khi bạn nhấp vào biểu tượng CRM, hệ thống gửi yêu cầu xác thực đến hệ thống quản lý công việc. Hệ thống quản lý công việc sẽ trả về một SAML Assertion chứa thông tin về bạn đã được xác thực.
+> CRM sẽ kiểm tra và nếu hợp lệ, bạn sẽ được chứng thực và truy cập vào ứng dụng mà không cần phải nhập lại thông tin đăng nhập.
+
+- SAML (Security Assertion Markup Language) được sử dụng để xác thực và chứng thực quyền truy cập của người dùng giữa các phần mềm khác nhau.
+- Đây là 1 cách để thực hiện Single Sign-On (SSO), cho phép người dùng đăng nhập vào một ứng dụng và được tự động đăng nhập vào các ứng dụng khác mà không cần phải nhập lại thông tin đăng nhập.
+
+Cách SAML hoạt động:
+
+    1. Identity Provider (IdP): Đây là phần mềm hoặc dịch vụ chịu trách nhiệm xác thực người dùng. Khi người dùng đăng nhập vào IdP, họ được xác thực và chứng thực.
+    2. Service Provider(SP): Đây là ứng dụng mà người dùng muốn truy cập. SP yêu cầu xác thực từ IdP để xác minh người dùng.
+    3. SAML Assertion: Khi người dùng đăng nhập vào IdP, IdP tạo ra một SAML Assertion (một tài liệu XML) chứa thông tin về người dùng đã được xác thực.
+    4. SAML Response: Khi người dùng cố gắng truy cập vào SP, SP sẽ gửi một yêu cầu xác thực đến IdP. IdP sẽ trả về SAML Response chứa SAML Assertion.
+    5. Xác minh và truy cập: SP kiểm tra SAML Assertion và nếu hợp lệ, người dùng được chứng thực và truy cập vào ứng dụng.
+
+
 #### REST
 ##### 1. JSON APIs
 ##### 2. SOAP
