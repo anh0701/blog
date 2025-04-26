@@ -1,8 +1,11 @@
 # Tối ưu câu lệnh truy vấn
 
-1. Chỉ SELECT những cột cần thiết
+1. Chỉ SELECT những cột cần thiết: thay vì SELECT * thì chỉ SELECT các cột cần thiết để giảm lượng data truyền về, giảm chi phí CPU/mạng.
 2. Dùng index đúng chỗ
-3. Tránh dùng hàm lên cột trong Where
+   
+   - trên cột WHERE, JOIN, ORDER BY, GROUP BY
+   - 
+3. Tránh dùng hàm lên cột trong WHERE: thay vì dùng YEAR(created_date) = 2024 thì ghi là created_date >= ... and ....<= .... vì dùng hàm thì sẽ tính toán hàm trước ( sẽ quét toàn bộ bảng => mất hiệu lực của index)
 4. Dùng LIMIT để phân trang hoặc giới hạn kết quả
 5. Join đúng kiểu, đúng điều kiện
 6. Tránh subquery lồng quá sâu, dùng JOIN thay
