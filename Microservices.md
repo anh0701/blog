@@ -77,3 +77,11 @@
 | Scale (mở rộng) tốn tài nguyên: scale toàn hệ thống | Scale từng service độc lập. Ví dụ: chỉ cần **scale Search Service**, không cần scale hết app. |
 | Công nghệ bị khóa cứng: ví dụ cả hệ thống bắt buộc xài Java | Mỗi service tự chọn tech stack: Search dùng Go, Payment dùng Java, AI dùng Python, tùy team. |
 | Update khó khăn: cập nhật 1 tính năng mới phải test toàn hệ thống | Microservice update từng service nhỏ. Ít ảnh hưởng. |
+
+> Không phải lúc nào cũng cần microservice. Nếu:
+> - Ứng dụng nhỏ hoặc vừa (1-2 team dev)
+> - Không cần scale siêu lớn
+> - Không yêu cầu high availability cực cao
+> - Không có kinh nghiệm quản lý hệ thống phân tán
+> 👉 Monolith (ứng dụng nguyên khối) vẫn tốt hơn: dễ làm, dễ maintain.
+> Microservice chỉ thực sự có lợi khi hệ thống và tổ chức đủ lớn.
