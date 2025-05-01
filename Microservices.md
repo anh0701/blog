@@ -55,4 +55,14 @@
    4. Kubernetes
    
       - cung cấp service discovery, load balancing, release mgmt,...
-      - 
+     
+
+## Khi nào nên dùng microservice:
+
+| Nếu bạn cần... | Microservice là tốt nhất |
+|:---|:---|
+| Rất nhiều team cùng phát triển 1 hệ thống lớn | ✅ |
+| Cần scale từng phần khác nhau trong hệ thống | ✅ |
+| Cần đảm bảo khi 1 phần lỗi, hệ thống vẫn chạy | ✅ |
+| Cần nhanh chóng update, deploy liên tục (CI/CD) | ✅ |
+| Cần cho phép chọn công nghệ phù hợp từng phần | ✅ |
