@@ -66,3 +66,14 @@
 | Cần đảm bảo khi 1 phần lỗi, hệ thống vẫn chạy | ✅ |
 | Cần nhanh chóng update, deploy liên tục (CI/CD) | ✅ |
 | Cần cho phép chọn công nghệ phù hợp từng phần | ✅ |
+
+## so sánh Monolith và Microservice 
+
+| Vấn đề nếu dùng 1 ứng dụng to ("Monolith") | Microservice giải quyết như thế nào |
+|:---|:---|
+| Càng lớn càng nặng: mỗi lần deploy, phải build và deploy **toàn bộ hệ thống** | Microservice chia nhỏ thành từng module riêng biệt. **Deploy service nào chỉ build service đó.** |
+| Mỗi team phải đụng chung vào cùng 1 project codebase -> **xung đột** | Mỗi service là 1 codebase, team A làm User Service, team B làm Payment Service, **không đụng nhau**. |
+| Khi lỗi, **cả hệ thống sập** dù lỗi chỉ ở 1 phần | Khi lỗi 1 service (ví dụ Chat Service down), các service khác (đặt hàng, thanh toán) **vẫn chạy**. |
+| Scale (mở rộng) tốn tài nguyên: scale toàn hệ thống | Scale từng service độc lập. Ví dụ: chỉ cần **scale Search Service**, không cần scale hết app. |
+| Công nghệ bị khóa cứng: ví dụ cả hệ thống bắt buộc xài Java | Mỗi service tự chọn tech stack: Search dùng Go, Payment dùng Java, AI dùng Python, tùy team. |
+| Update khó khăn: cập nhật 1 tính năng mới phải test toàn hệ thống | Microservice update từng service nhỏ. Ít ảnh hưởng. |
